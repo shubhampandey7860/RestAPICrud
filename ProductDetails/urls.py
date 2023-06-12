@@ -14,10 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from app.views import ProductData
+from django.urls import path , include
+from app.views import ProductData 
+from app2.views import *
+from app2.views import * 
+from rest_framework.routers import DefaultRouter 
+
+DRO = DefaultRouter()
+DRO.register("products",ProductCrud,basename="products")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("product/<id>",ProductData.as_view(),name="product"),
+    path("app/",include(DRO.urls)),
     ]
